@@ -73,3 +73,19 @@ export function setup(logger: Logger) {
 		});
 	});
 }
+void TestOveIO::oveReadTest(const char* file)
+{
+    preferences.importCharsetOve = "GBK";
+    MasterScore* score = readScore(DIR + file + ".ove");
+    QVERIFY(score);
+    score->doLayout();
+    score->connectTies();
+    score->setLayoutAll();
+    score->update();
+    QVERIFY(saveCompareScore(score, QString("%1.ove.mscx").arg(file),
+                             DIR + QString("%1.ove-ref.mscx").arg(file)));
+    delete score;
+}
+
+QTEST_MAIN(TestOveIO)
+#include "tst_ove_structu
